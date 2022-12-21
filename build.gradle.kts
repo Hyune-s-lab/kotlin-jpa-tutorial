@@ -16,6 +16,12 @@ repositories {
     mavenCentral()
 }
 
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
 val kotestVersion = "5.4.2"
 val kotestExtVersion = "1.1.2"
 val testContainerVersion = "1.17.6"
