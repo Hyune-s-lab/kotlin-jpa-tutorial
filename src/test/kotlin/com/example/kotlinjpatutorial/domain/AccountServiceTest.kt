@@ -11,10 +11,18 @@ import org.springframework.test.context.ActiveProfiles
 
 @ActiveProfiles("test")
 @SpringBootTest
-class AccountServiceV2Test(
+class AccountServiceTest(
+    private val accountServiceV1: AccountServiceV1,
+
     private val accountServiceV2: AccountServiceV2,
     private val accountEntityDaoV2: AccountEntityDaoV2,
 ) : FunSpec({
+    test("v1") {
+        accountServiceV1.deposit(testRequest1)
+        accountServiceV1.deposit(testRequest2)
+        accountServiceV1.deposit(testRequest3)
+    }
+
     test("v2") {
         accountServiceV2.deposit(testRequest1)
         accountServiceV2.deposit(testRequest2)
