@@ -47,3 +47,16 @@ password: root
 - entity 관계가 존재하지 않기에 조회시 별도의 dto 를 projection 하는 쿼리가 필요합니다.
     - jpql, querydsl 을 활용합니다.
     - 본 코드에서는 생략하였습니다.
+
+## v2
+
+> 부모 entity 에 OneToMany 단방향 관계 추가
+
+- jpa 를 통한 조회 기능을 활용할 수 있습니다.
+- account 는 history 의 aggregate root 가 됩니다.
+    - history 생성시 accountId 를 전달받지 않습니다.
+- history 는 OneToFew 로 간주하여 EAGER LOADING 을 활용합니다.
+    - 업무 요건 상 1개의 account 에는 3개까지의 history 만이 생성될 수 있습니다.
+    - 업무 요건 상 account 와 history 는 동시에 필요한 경우가 대부분입니다.
+- 하지만 n+1 문제가 있습니다.
+    - account 조회 쿼리 1회, 연결된 history 조회 쿼리 3회 

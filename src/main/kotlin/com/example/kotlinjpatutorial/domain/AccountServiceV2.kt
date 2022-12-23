@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class AccountServiceV1(@Qualifier("accountRepositoryImplV1") private val accountRepository: AccountRepository) {
+class AccountServiceV2(@Qualifier("accountRepositoryImplV2") private val accountRepository: AccountRepository) {
     @Transactional
     fun deposit(request: AccountDepositRequest) {
         accountRepository.deposit(request)
