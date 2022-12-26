@@ -1,29 +1,19 @@
 package com.example.kotlinjpatutorial.testutil
 
 import com.example.kotlinjpatutorial.common.type.AmountType
-import com.example.kotlinjpatutorial.common.type.EventType
 import com.example.kotlinjpatutorial.domain.request.AccountDepositRequest
+import kotlin.random.Random
 
-val testRequest1 = AccountDepositRequest(
-    eventType = EventType.DEPOSIT,
-    amounts = listOf(
-        AmountType.CASH to 10_123L,
-        AmountType.CARD to 20_456L,
-        AmountType.GIFT to 30_789L
+val testRequests = (1..5).map {
+    listOf(
+        AmountType.CASH to cashAmount(),
+        AmountType.CARD to cardAmount(),
+        AmountType.GIFT to giftAmount()
     )
-)
+}.map {
+    AccountDepositRequest(amounts = it)
+}
 
-val testRequest2 = AccountDepositRequest(
-    eventType = EventType.DEPOSIT,
-    amounts = listOf(
-        AmountType.CASH to 30_123L,
-        AmountType.CARD to 50_456L,
-    )
-)
-
-val testRequest3 = AccountDepositRequest(
-    eventType = EventType.DEPOSIT,
-    amounts = listOf(
-        AmountType.GIFT to 90_589L
-    )
-)
+private fun cashAmount() = 10000L + Random.nextLong(0, 100)
+private fun cardAmount() = 30000L + Random.nextLong(0, 100)
+private fun giftAmount() = 50000L + Random.nextLong(0, 100)
