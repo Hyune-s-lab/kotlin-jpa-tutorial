@@ -1,6 +1,7 @@
 package com.example.kotlinjpatutorial.domain
 
 import com.example.kotlinjpatutorial.repository.v2.AccountEntityDaoV2
+import com.example.kotlinjpatutorial.repository.v3.AccountEntityDaoV3
 import com.example.kotlinjpatutorial.testutil.testRequest1
 import com.example.kotlinjpatutorial.testutil.testRequest2
 import com.example.kotlinjpatutorial.testutil.testRequest3
@@ -16,6 +17,9 @@ class AccountServiceTest(
 
     private val accountServiceV2: AccountServiceV2,
     private val accountEntityDaoV2: AccountEntityDaoV2,
+
+    private val accountServiceV3: AccountServiceV3,
+    private val accountEntityDaoV3: AccountEntityDaoV3,
 ) : FunSpec({
     test("v1") {
         accountServiceV1.deposit(testRequest1)
@@ -30,6 +34,20 @@ class AccountServiceTest(
 
         println("### accountEntityDaoV2.findAll()")
         accountEntityDaoV2.findAll().also {
+            it[0].amount shouldBe testRequest1.totalAmount()
+            it[0].id shouldBe it[0].histories[0].accountId
+            it[0].histories[0].amountType shouldBe testRequest1.amounts[0].first
+            it[0].histories[0].amount shouldBe testRequest1.amounts[0].second
+        }
+    }
+
+    test("v3") {
+        accountServiceV3.deposit(testRequest1)
+        accountServiceV3.deposit(testRequest2)
+        accountServiceV3.deposit(testRequest3)
+
+        println("### accountEntityDaoV3.findAll()")
+        accountEntityDaoV3.findAllUsingJoin().also {
             it[0].amount shouldBe testRequest1.totalAmount()
             it[0].id shouldBe it[0].histories[0].accountId
             it[0].histories[0].amountType shouldBe testRequest1.amounts[0].first
