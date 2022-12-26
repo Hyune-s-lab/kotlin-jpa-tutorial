@@ -59,4 +59,11 @@ password: root
     - 업무 요건 상 1개의 account 에는 3개까지의 history 만이 생성될 수 있습니다.
     - 업무 요건 상 account 와 history 는 동시에 필요한 경우가 대부분입니다.
 - 하지만 n+1 문제가 있습니다.
-    - account 조회 쿼리 1회, 연결된 history 조회 쿼리 3회 
+    - account 조회 쿼리 1회, 연결된 history 조회 쿼리 3회
+
+## v3
+
+> v2 에서 발생한 n+1 문제를 `fetch join` 으로 해결
+
+- query 성격의 로직에 적용 가능합니다. (cqrs 패턴)
+- 샘플 코드는 jpql 을 사용했지만 개인적으로는 querydsl 을 선호합니다.
