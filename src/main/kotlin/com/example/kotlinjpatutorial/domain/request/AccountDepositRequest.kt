@@ -4,8 +4,9 @@ import com.example.kotlinjpatutorial.common.type.AmountType
 import com.example.kotlinjpatutorial.common.type.EventType
 
 data class AccountDepositRequest(
-    val eventType: EventType,
     val amounts: List<Pair<AmountType, Long>>
-){
-    fun totalAmount() : Long = amounts.sumOf { it.second }
+) {
+    val eventType: EventType = EventType.DEPOSIT
+
+    fun totalAmount(): Long = amounts.sumOf { it.second }
 }
